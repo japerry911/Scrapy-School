@@ -10,6 +10,7 @@ packages = [{include = "first_section"}]
 python = "~3.9"
 Scrapy = "^2.6.2"
 openpyxl = "^3.0.10"
+pymongo = {extras = ["srv"], version = "^4.2.0"}
 
 
 [tool.poetry.group.dev.dependencies]
