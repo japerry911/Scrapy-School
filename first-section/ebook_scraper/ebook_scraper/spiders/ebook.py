@@ -6,16 +6,8 @@ class EbookSpider(scrapy.Spider):
 
     start_urls = ["https://books.toscrape.com/"]
 
-    def parse(self, response, **_kwargs):
-        print("[ OUR RESPONSE ]")
+    def parse(self, response: scrapy.http.Response, **_kwargs):
+        print("[ parse ]")
 
-        ebooks = response.css("article")
-
-        for ebook in ebooks:
-            title = ebook.css("a::text").get()
-            price = ebook.css("p.price_color::text").get()
-
-            yield {
-                "title": title,
-                "price": price
-            }
+        response.css("h3 a::text")
+        response.xpath("//h3/a/text()")
