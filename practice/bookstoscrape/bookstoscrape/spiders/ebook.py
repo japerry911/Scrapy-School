@@ -5,7 +5,7 @@ from bookstoscrape.items import EbookItem
 
 class EbookSpider(Spider):
     name = "ebook"
-    start_urls = ["https://books.toscrape.com/"]
+    start_urls = ["https://books.toscrape.com/index.html"]
 
     def __init__(self):
         super().__init__()
@@ -21,9 +21,11 @@ class EbookSpider(Spider):
         ebooks = response.css("article.product_prod")
 
         for ebook in ebooks:
+            print(ebook)
+
             ebook_item = EbookItem()
 
-            title = ebook.css("h3 a").attrib["title"]
+            title = ebook.css("h3 a::attr(title)").get()
             price = ebook.css("div.product_price p.price_color::text").get()
 
             ebook_item["title"] = title
