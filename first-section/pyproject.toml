@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "first-section"
+version = "0.1.0"
+description = ""
+authors = ["Jack Perry <jack.e.perry@outlook.com>"]
+readme = "README.md"
+packages = [{include = "first_section"}]
+
+[tool.poetry.dependencies]
+python = "~3.9"
+Scrapy = "^2.6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
