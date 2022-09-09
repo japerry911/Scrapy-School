@@ -6,11 +6,11 @@ from ebook_scraper.items import EbookItem
 
 class EbookSpider(scrapy.Spider):
     name = "ebook"
-
     # start_urls = ["https://books.toscrape.com/"]
     start_urls = [
-        "https://books.toscrape.com/catalogue/category/books/travel_2/"
+        "https://books.toscrape.com/catalogue/category/books/travel_2"
     ]
+    cols = ["Title", "Price"]
 
     def parse(self, response: scrapy.http.Response, **_kwargs):
         ebooks = response.css("article.product_pod")

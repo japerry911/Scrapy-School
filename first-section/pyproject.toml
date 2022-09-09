@@ -9,6 +9,7 @@ packages = [{include = "first_section"}]
 [tool.poetry.dependencies]
 python = "~3.9"
 Scrapy = "^2.6.2"
+openpyxl = "^3.0.10"
 
 
 [tool.poetry.group.dev.dependencies]
