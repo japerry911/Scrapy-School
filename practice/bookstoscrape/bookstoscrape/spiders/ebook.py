@@ -1,5 +1,7 @@
 from scrapy import http, Spider
 
+from bookstoscrape.items import EbookItem
+
 
 class EbookSpider(Spider):
     name = "ebook"
@@ -19,12 +21,12 @@ class EbookSpider(Spider):
         ebooks = response.css("article.product_prod")
 
         for ebook in ebooks:
-            title = ebook.css("h3 a::attr(title)").get()
+            ebook_item = EbookItem()
+
+            title = ebook.css("h3 a").attrib["title"]
             price = ebook.css("div.product_price p.price_color::text").get()
 
-            print(title)
+            ebook_item["title"] = title
+            ebook_item["price"] = price
 
-            yield {
-                "title": title,
-                "price": price
-            }
+            yield ebook_item
