@@ -1,11 +1,11 @@
-from scrapy import http, Spider
+from scrapy import http, loader, Spider
 
 from bookstoscrape.items import EbookItem
 
 
 class EbookSpider(Spider):
     name = "ebook"
-    start_urls = ["https://books.toscrape.com/index.html"]
+    start_urls = ["https://books.toscrape.com"]
 
     def __init__(self):
         super().__init__()
@@ -18,17 +18,21 @@ class EbookSpider(Spider):
     ):
         self.page_count += 1
 
-        ebooks = response.css("article.product_prod")
+        ebooks = response.css("article.product_pod")
 
         for ebook in ebooks:
-            print(ebook)
+            item_loader = loader.ItemLoader(
+                item=EbookItem(),
+                selector=ebook
+            )
 
-            ebook_item = EbookItem()
+            item_loader.add_css(
+                "title",
+                "h3 a::attr(title)"
+            )
+            item_loader.add_css(
+                "price",
+                "div.product_price p.price_color::text"
+            )
 
-            title = ebook.css("h3 a::attr(title)").get()
-            price = ebook.css("div.product_price p.price_color::text").get()
-
-            ebook_item["title"] = title
-            ebook_item["price"] = price
-
-            yield ebook_item
+            yield item_loader.load_item()
